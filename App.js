@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import List from './components/List';
 import axios from 'axios';
-import './App.css'; // Import the custom styles
+import './App.css'; 
 
 function App() {
   let [lists, setList] = useState([]); 
@@ -16,7 +16,7 @@ function App() {
   };
 
   useEffect(() => {
-    axios.get('https://to-do-list-4b473-default-rtdb.firebaseio.com/todo.json', options)
+    axios.get('//Add your url to firebase db//', options)//Add your url to firebase db//
       .then(response => {
         const data = response.data;
         const tasksArray = Object.values(data);
@@ -37,7 +37,7 @@ function App() {
       const newTask = { task: inputValue, priority };
       setList([...lists, newTask]); 
       setInputValue('');
-      axios.post('https://to-do-list-4b473-default-rtdb.firebaseio.com/todo.json', newTask, options)
+      axios.post('//Add your url to firebase db//', newTask, options) //Add your url to firebase db//
         .then(response => {
           console.log(response.data);
           setTaskIds([...taskIds, response.data.name]);
@@ -57,7 +57,7 @@ function App() {
 
   function handleDelete(index) {
     const taskId = taskIds[index]; 
-    axios.delete(`https://to-do-list-4b473-default-rtdb.firebaseio.com/todo/${taskId}.json`, options)
+    axios.delete(`//Add your url to firebase db//${taskId}.json`, options)//Add your url to firebase db//
       .then(response => {
         console.log(response.data);
         const updatedLists = lists.filter((_, i) => i !== index);
@@ -74,11 +74,11 @@ function App() {
     const taskId = taskIds[index];
     const updatedTaskObj = { task: updatedTask, priority: lists[index].priority };
   
-    axios.put(`https://to-do-list-4b473-default-rtdb.firebaseio.com/todo/${taskId}.json`, updatedTaskObj, options)
+    axios.put(`//Add your url to firebase db//${taskId}.json`, updatedTaskObj, options)//Add your url to firebase db//
       .then(response => {
         console.log("Update successful:", response.data);
         const updatedLists = [...lists];
-        updatedLists[index] = updatedTaskObj; // Update the task object, not just the task text
+        updatedLists[index] = updatedTaskObj;
         setList(updatedLists);
       })
       .catch(error => {
